@@ -1,0 +1,32 @@
+prepare:
+  cmd: python src/prepare.py
+  deps:
+  - path: data/raw
+    md5: a8a5252d9b14ab2c1be283822a86981a.dir
+  - path: src/prepare.py
+    md5: ef804f358e00edcfe52c865b471f8f55
+  outs:
+  - path: data/prepared/test.csv
+    md5: dcfd571a7813a84153afcc73427e7e88
+  - path: data/prepared/train.csv
+    md5: f1bbda0d2d7a98e07ac7827b37a86d15
+train:
+  cmd: python src/train.py
+  deps:
+  - path: data/prepared/train.csv
+    md5: f1bbda0d2d7a98e07ac7827b37a86d15
+  - path: src/train.py
+    md5: ad34e87f4d781a9d01979df26ca69fca
+  outs:
+  - path: model/model.joblib
+    md5: 460c2f4ae9dd96f548342592935a76a7
+evaluate:
+  cmd: python src/evaluate.py
+  deps:
+  - path: model/model.joblib
+    md5: 460c2f4ae9dd96f548342592935a76a7
+  - path: src/evaluate.py
+    md5: b197277667d6269271fff4ae4af8a941
+  outs:
+  - path: metrics/accuracy.json
+    md5: 599a60e6d2d7e9e7826215f2ffb5e3a5
